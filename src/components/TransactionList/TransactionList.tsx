@@ -5,7 +5,7 @@ import "./TransactionList.scss";
 import { Transaction } from "../../types/Transaction";
 
 type TransactionListProps = {
-  setEditingTransaction: (transaction: Transaction) => void;
+  setEditingTransaction: (transaction: Transaction | null) => void;
 };
 
 export const TransactionList: React.FC<TransactionListProps> = ({
@@ -18,17 +18,20 @@ export const TransactionList: React.FC<TransactionListProps> = ({
   }
 
   const { state } = context;
+
+   if (state.transactions.length === 0) {
+    return null;
+  }
+  
   return (
-    state.transactions.length !== 0 && (
-      <div className="transaction-list">
-        {state.transactions.map((transaction: Transaction) => (
-          <TransactionItem
-            key={transaction.id}
-            transaction={transaction}
-            onEdit={setEditingTransaction}
-          />
-        ))}
-      </div>
-    )
+    <div className="transaction-list">
+      {state.transactions.map((transaction: Transaction) => (
+        <TransactionItem
+          key={transaction.id}
+          transaction={transaction}
+          onEdit={setEditingTransaction}
+        />
+      ))}
+    </div>
   );
 };
