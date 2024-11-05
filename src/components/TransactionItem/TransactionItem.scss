@@ -1,0 +1,75 @@
+@import "../../styles/variables.scss";
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+
+  &--income {
+    background-color: #e0ffe0;
+  }
+
+  &--expense {
+    background-color: #ffe0e0;
+  }
+
+  &__details {
+    flex-grow: 1;
+
+    &__title {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    &__category,
+    &__date {
+      font-size: 0.9rem;
+      color: #555;
+    }
+  }
+
+  &__amount {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    span {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-right: 1rem;
+    }
+  }
+
+  &__delete-button {
+    background-color: $expens-danger-color;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $expens-danger-color;
+    }
+  }
+
+  &__edit-button {
+    background-color: $primary-color;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #18771b;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@import "../../styles/variables.scss";
+
+.budget-summary {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing;
+  border-radius: $border-radius;
+
+  &__item {
+    text-align: center;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__value {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    &--success {
+      color: $primary-color;
+    }
+
+    &--danger {
+      color: $expens-danger-color;
+    }
+  }
+}

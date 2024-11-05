@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+[DEMO LINK](https://senkiv-oleh.github.io/budget-tracker-app)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+# Budget Management App
 
-In the project directory, you can run:
+A React-based budget management application that helps users track and manage their income and expenses. The app includes features like transaction logging, editing, and deletion, with categories for both income and expenses. It is built with a modular and scalable architecture, using React Context and TypeScript for state management and type safety.
 
-### `npm start`
+## Table of Contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Usage](#usage)
+- [Folder Structure](#folder-structure)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Project Overview
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This Budget Management App enables users to:
+- Transaction logging and categorize income and expense transactions.
+- View a summary of all transactions.
+- Edit and delete transactions to keep budgets accurate.
+  
+The app is designed with clean, reusable components following BEM and SASS for styling, and React Context API for managing global state without heavy state management libraries.
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Add, Edit, and Delete Transactions**: Users can manage their transactions with easy-to-use forms.
+- **Income and Expense Categories**: Transactions are categorized for better financial tracking.
+- **Real-Time State Management**: Powered by React Context API.
+- **Error Handling and Validation**: Ensures input integrity and user-friendly validation messages.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Frontend**: React, JavaScript
+- **State Management**: React Context API
+- **Styling**: SASS, BEM methodology
+- **Type Safety**: TypeScript (for type definitions and interfaces)
 
-### `npm run eject`
+## Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Adding a Transaction**: Enter transaction details like amount, type (income or expense), category, description, and date.
+- **Editing a Transaction**: Click the "Edit" button on an existing transaction to modify its details.
+- **Deleting a Transaction**: Click the "Delete" button to remove a transaction.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Folder Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+budget-management-app/
+├── public/                 # Static files
+├── src/
+│   ├── components/         # Reusable components (e.g., TransactionForm, TransactionItem)
+│   ├── context/            # Context and provider setup for global state (e.g., BudgetContext)
+│   ├── types/              # TypeScript interfaces (e.g., Transaction, BudgetContextType)
+│   ├── App.js              # Main App component
+│   ├── index.js            # Entry point
+│   └── styles/             # Global SASS and styling files
+├── package.json            # Project metadata and dependencies
+└── README.md               # Project documentation
+```
