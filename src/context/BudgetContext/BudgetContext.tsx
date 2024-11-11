@@ -1,4 +1,4 @@
-import React, { createContext, Dispatch, ReactNode, useReducer } from "react";
+import React, { createContext, Dispatch, ReactNode, useEffect, useReducer } from "react";
 import { Transaction } from "../../types/Transaction";
 import { TransactionAction } from "../../types/TransactionAction";
 
@@ -15,31 +15,51 @@ const initialState = {
   transactions: [],
 };
 
+const saveToLocalStorage = (state: BudgetState) => {
+  localStorage.setItem("budgetState", JSON.stringify(state));
+};
+
+const loadFromLocalStorage = (): BudgetState => {
+  const savedState = localStorage.getItem("budgetState");
+  return savedState ? JSON.parse(savedState) : initialState;
+};
+
+
 const budgetReducer = (
   state: BudgetState,
   action: TransactionAction,
 ): BudgetState => {
   switch (action.type) {
-    case "ADD_TRANSACTION":
-      return {
+    case "ADD_TRANSACTION": {
+      const newStateAdd = {
         ...state,
         transactions: [...state.transactions, action.payload],
       };
-    case "UPDATE_TRANSACTION":
-      return {
+      saveToLocalStorage(newStateAdd);
+      return newStateAdd;
+    }
+
+    case "UPDATE_TRANSACTION": {
+      const newStateUpdate = {
         ...state,
         transactions: state.transactions.map((transaction) =>
           transaction.id === action.payload.id ? action.payload : transaction,
         ),
       };
-    case "DELETE_TRANSACTION":
-      return {
+      saveToLocalStorage(newStateUpdate);
+      return newStateUpdate;
+    }
+    case "DELETE_TRANSACTION": {
+      const newStateDelete = {
         ...state,
         transactions: state.transactions.filter(
           (transaction) => transaction.id !== action.payload,
         ),
       };
-
+      saveToLocalStorage(newStateDelete);
+      return newStateDelete;
+    }
+    
     default:
       return state;
   }
@@ -54,7 +74,11 @@ type BudgetProviderProps = {
 };
 
 export const BudgetProvider: React.FC<BudgetProviderProps> = ({ children }) => {
-  const [state, dispatch] = useReducer(budgetReducer, initialState);
+  const [state, dispatch] = useReducer(budgetReducer, loadFromLocalStorage());
+
+    useEffect(() => {
+    saveToLocalStorage(state);
+  }, [state]);
 
   return (
     <BudgetContext.Provider value={{ state, dispatch }}>
