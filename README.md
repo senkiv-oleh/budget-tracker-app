@@ -11,6 +11,7 @@ A React-based budget management application that helps users track and manage th
 - [Project Overview](#project-overview)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
+- [Installation](#installation)
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
 
@@ -44,6 +45,29 @@ The app is designed with clean, reusable components following BEM and SASS for s
 - **Adding a Transaction**: Enter transaction details like amount, type (income or expense), category, description, and date.
 - **Editing a Transaction**: Click the "Edit" button on an existing transaction to modify its details.
 - **Deleting a Transaction**: Click the "Delete" button to remove a transaction.
+
+## Installation
+
+To set up the project locally, follow these steps:
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/budget-management-app.git
+    cd budget-management-app
+    ```
+
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3. Start the development server:
+    ```bash
+    npm start
+    ```
+
+4. Open your browser and navigate to `http://localhost:3000` to view the app.
+
 
 ## Folder Structure
 
