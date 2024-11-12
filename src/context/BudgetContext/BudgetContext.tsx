@@ -59,7 +59,7 @@ const budgetReducer = (
       saveToLocalStorage(newStateDelete);
       return newStateDelete;
     }
-    
+
     default:
       return state;
   }
@@ -76,7 +76,7 @@ type BudgetProviderProps = {
 export const BudgetProvider: React.FC<BudgetProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(budgetReducer, loadFromLocalStorage());
 
-    useEffect(() => {
+  useEffect(() => {
     saveToLocalStorage(state);
   }, [state]);
 

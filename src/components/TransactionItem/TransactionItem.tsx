@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { BudgetContext } from "../../context/BudgetContext";
+import React from "react";
 import "./TransactionItem.scss";
 import { Transaction } from "../../types/Transaction";
+import { useBudgetContext } from '../../context/BudgetContext/useBudgetContext'
 
 interface TransactionItemProps {
   transaction: Transaction; 
@@ -12,13 +12,7 @@ export const TransactionItem: React.FC<TransactionItemProps> = ({
   transaction,
   onEdit,
 }) => {
-  const context = useContext(BudgetContext);
-
-  if (!context) {
-    throw new Error("TransactionItem must be used within a BudgetProvider");
-  }
-
-  const { dispatch } = context; 
+  const { dispatch } = useBudgetContext(); 
 
   const handleDelete = () => {
     dispatch({

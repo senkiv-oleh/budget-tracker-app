@@ -1,8 +1,8 @@
 // src/components/TransactionForm.js
-import React, { useState, useContext, useEffect } from "react";
-import { BudgetContext } from "../../context/BudgetContext";
+import React, { useState, useEffect } from "react";
 import { Transaction } from "../../types/Transaction";
 import "./TransactionForm.scss";
+import { useBudgetContext } from '../../context/BudgetContext/useBudgetContext'
 
 interface TransactionFormProps {
   editingTransaction?: Transaction | null;
@@ -21,13 +21,7 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
   editingTransaction,
   setEditingTransaction,
 }) => {
-  const context = useContext(BudgetContext);
-
-  if (!context) {
-    throw new Error("BudgetContext must be used within a BudgetProvider");
-  }
-
-  const { dispatch } = context;
+  const { dispatch } = useBudgetContext();
 
   const [type, setType] = useState<string>("");
   const [amount, setAmount] = useState<string>("");

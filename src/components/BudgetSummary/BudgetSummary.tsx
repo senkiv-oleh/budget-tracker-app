@@ -1,16 +1,10 @@
-import React, { useContext } from "react";
-import { BudgetContext } from "../../context/BudgetContext";
-import { Transaction } from "../../types/Transaction";
+import React from "react";
 import "./BudgetSummary.scss";
+import { useBudgetContext } from '../../context/BudgetContext/useBudgetContext'
+import { Transaction } from "../../types/Transaction";
 
 export const BudgetSummary: React.FC = () => {
-  const context = useContext(BudgetContext);
-
-  if (!context) {
-    throw new Error("BudgetSummary must be used within a BudgetProvider");
-  }
-
-  const { state } = context;
+  const { state } = useBudgetContext();
 
   const income = state.transactions
     .filter((t: Transaction) => t.type === "income")
