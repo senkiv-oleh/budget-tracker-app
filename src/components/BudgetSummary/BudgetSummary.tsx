@@ -1,18 +1,11 @@
 import React from "react";
 import "./BudgetSummary.scss";
-import { useBudgetContext } from '../../context/BudgetContext/useBudgetContext'
-import { Transaction } from "../../types/Transaction";
+import { calculateBudget } from "../../helpers/calculateBudget";
 
 export const BudgetSummary: React.FC = () => {
-  const { state } = useBudgetContext();
-
-  const income = state.transactions
-    .filter((t: Transaction) => t.type === "income")
-    .reduce((acc, t) => acc + t.amount, 0);
-  const expenses = state.transactions
-    .filter((t: Transaction) => t.type === "expense")
-    .reduce((acc, t) => acc + t.amount, 0);
-  const balance = +income - +expenses;
+  const income = calculateBudget("income");
+  const expenses = calculateBudget("expense");
+  const balance = income - expenses;
 
   return (
     <div className="budget-summary">
