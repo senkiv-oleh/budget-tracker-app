@@ -5,7 +5,7 @@ import { calculateBudget } from "../../helpers/calculateBudget";
 export const BudgetSummary: React.FC = () => {
   const income = calculateBudget("income");
   const expenses = calculateBudget("expense");
-  const balance = income - expenses;
+  const balance = +(income - expenses).toFixed(2);
 
   return (
     <div className="budget-summary">

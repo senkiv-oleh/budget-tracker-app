@@ -12,10 +12,6 @@ export const TransactionList: React.FC<TransactionListProps> = ({
   setEditingTransaction,
 }) => {
   const { state } = useBudgetContext();
-
-   if (state.transactions.length === 0) {
-    return null;
-  }
   
   return (
     <div className="transaction-list">

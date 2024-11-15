@@ -23,7 +23,7 @@ export const App: React.FC = () => {
             editingTransaction={editingTransaction}
             setEditingTransaction={setEditingTransaction}
           />
-          <TransactionList setEditingTransaction={setEditingTransaction} />
+           <TransactionList setEditingTransaction={setEditingTransaction} />
         </main>
       </div>
     </BudgetProvider>

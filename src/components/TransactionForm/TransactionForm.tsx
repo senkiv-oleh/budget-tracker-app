@@ -1,8 +1,12 @@
 // src/components/TransactionForm.js
 import React, { useState, useEffect } from "react";
+import classNames from 'classnames/dedupe';
 import { Transaction } from "../../types/Transaction";
 import "./TransactionForm.scss";
-import { useBudgetContext } from '../../context/BudgetContext/useBudgetContext'
+import { useBudgetContext } from '../../context/BudgetContext/useBudgetContext';
+import categories from './categories.json';
+
+console.log(categories);
 
 interface TransactionFormProps {
   editingTransaction?: Transaction | null;
@@ -23,69 +27,53 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
 }) => {
   const { dispatch } = useBudgetContext();
 
-  const [type, setType] = useState<string>("");
-  const [amount, setAmount] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [date, setDate] = useState<string>("");
+  const [transaction, setTransaction] = useState<Transaction>({
+    id: '',
+    type: '',
+    amount: 0,
+    category: '',
+    description: '',
+    date: '',
+  });
   const [errors, setErrors] = useState<Errors>({});
 
-  const incomeCategories = [
-    "Salary",
-    "Freelance",
-    "Investments",
-    "Rental Income",
-    "Other",
-  ];
-  const expenseCategories = [
-    "Groceries",
-    "Rent",
-    "Utilities",
-    "Entertainment",
-    "Transportation",
-    "Healthcare",
-    "Education",
-    "Other",
-  ];
+  const {incomeCategories, expenseCategories} = categories;
 
   useEffect(() => {
     if (editingTransaction) {
-      setType(editingTransaction.type);
-      setAmount(editingTransaction.amount.toString());
-      setCategory(editingTransaction.category);
-      setDescription(editingTransaction.description);
-      setDate(editingTransaction.date);
+      setTransaction({
+        ...editingTransaction,
+      })
     }
   }, [editingTransaction]);
 
   const validate = () => {
     const validationErrors: Errors = {};
-    if (!type) validationErrors.type = "Type is required";
-    if (!amount || parseFloat(amount) <= 0)
+
+    if (!transaction.type) validationErrors.type = "Type is required";
+    if (!transaction.amount || transaction.amount <= 0)
       validationErrors.amount = "Amount must be positive";
-    if (!category) validationErrors.category = "Category is required";
-    if (!description) validationErrors.description = "Description is required";
-    if (!date) validationErrors.date = "Date is required";
+    if (!transaction.category) validationErrors.category = "Category is required";
+    if (!transaction.date) validationErrors.date = "Date is required";
+
     return validationErrors;
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const validationErrors = validate();
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
     const transactionData = {
+      ...transaction,
       id: editingTransaction
         ? String(editingTransaction.id)
         : Date.now().toString(),
-      type,
-      amount: parseFloat(amount),
-      category,
-      description,
-      date,
     };
 
     if (editingTransaction) {
@@ -101,26 +89,36 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
       });
     }
 
-    setType("");
-    setAmount("");
-    setCategory("");
-    setDescription("");
-    setDate("");
+    setTransaction({
+      id: '',
+      type: '',
+      amount: 0,
+      category: '',
+      description: '',
+      date: '',
+  })
+
     setErrors({});
   };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+
+    setTransaction(current => ({ ...current, [name]: value }));
+  }
 
   return (
     <form className="transaction-form__form" onSubmit={handleSubmit}>
       <div className="transaction-form__wrapper">
         <label className="transaction-form__label">Transaction Type</label>
         <select
-          className={`transaction-form__select ${
-            errors.type && "transaction-form--denger"
-          }`}
-          value={type}
-          onChange={(e) => {
-            setType(e.target.value);
-            setCategory("");
+          className={classNames("transaction-form__select", {
+             "transaction-form--denger": errors.type})}
+          value={transaction.type}
+          name="type"
+          onChange={(event) => {
+            handleChange(event);
+            setTransaction(current => ({ ...current, category: '' }));
           }}
         >
           <option value="">Select Type</option>
@@ -138,11 +136,11 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
           type="number"
           min="0.00"
           step="0.01"
-          className={`transaction-form__input ${
-            errors.amount && "transaction-form--denger"
-          }`}
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          name="amount"
+          className={classNames("transaction-form__input", {
+             "transaction-form--denger": errors.amount})}
+          value={transaction.amount ? transaction.amount : ''}
+          onChange={handleChange}
         />
         {errors.amount && (
           <div className="transaction-form__error">{errors.amount}</div>
@@ -152,14 +150,14 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
       <div className="transaction-form__wrapper">
         <label className="transaction-form__label">Category</label>
         <select
-          className={`transaction-form__select ${
-            errors.amount && "transaction-form--denger"
-          }`}
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          className={classNames("transaction-form__select", {
+             "transaction-form--denger": errors.category})}
+          name="category"
+          value={transaction.category}
+          onChange={handleChange}
         >
           <option value="">Select Category</option>
-          {(type === "income" ? incomeCategories : expenseCategories).map(
+          {(transaction.type === "income" ? incomeCategories : expenseCategories).map(
             (cat) => (
               <option key={cat} value={cat}>
                 {cat}
@@ -175,26 +173,22 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
       <div className="transaction-form__wrapper">
         <label className="transaction-form__label">Description</label>
         <textarea
-          className={`transaction-form__textarea ${
-            errors.amount && "transaction-form--denger"
-          }`}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          className="transaction-form__input"
+          name="description"
+          value={transaction.description}
+          onChange={handleChange}
         />
-        {errors.description && (
-          <div className="transaction-form__error">{errors.description}</div>
-        )}
       </div>
 
       <div className="transaction-form__wrapper">
         <label className="transaction-form__label">Date</label>
         <input
           type="date"
-          className={`transaction-form__input ${
-            errors.amount && "transaction-form--denger"
-          }`}
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
+          name="date"
+          className={classNames("transaction-form__input", {
+             "transaction-form--denger": errors.date})}
+          value={transaction.date}
+          onChange={handleChange}
         />
         {errors.date && (
           <div className="transaction-form__error">{errors.date}</div>

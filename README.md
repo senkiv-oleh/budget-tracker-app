@@ -77,10 +77,11 @@ budget-management-app/
 ├── src/
 │   ├── components/         # Reusable components (e.g., TransactionForm, TransactionItem)
 │   ├── context/            # Context and provider setup for global state (e.g., BudgetContext)
+│   ├── helpers/            # Helpers functions (e.g., calculateBudget)
+│   ├── styles/             # Global SASS and styling files
 │   ├── types/              # TypeScript interfaces (e.g., Transaction, BudgetContextType)
 │   ├── App.js              # Main App component
-│   ├── index.js            # Entry point
-│   └── styles/             # Global SASS and styling files
+│   └── index.js            # Entry point
 ├── package.json            # Project metadata and dependencies
 └── README.md               # Project documentation
 ```
