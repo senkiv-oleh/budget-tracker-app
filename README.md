@@ -35,10 +35,15 @@ The app is designed with clean, reusable components following BEM and SASS for s
 
 ## Tech Stack
 
-- **Frontend**: React, JavaScript
-- **State Management**: React Context API
-- **Styling**: SASS, BEM methodology
-- **Type Safety**: TypeScript (for type definitions and interfaces)
+- **Frontend**: `React`, `JavaScript`
+- **State Management**: `React Context API`
+- **Styling**: `SASS`, `BEM methodology`
+- **Type Safety**: `TypeScript` (for type definitions and interfaces)
+- **Form Handling**: `react-hook-form`
+- **Testing**: `Jest`, `React Testing Library`
+- **Version Control**: `Git`, `GitHub`
+- **Hosting**: `GitHub Pages`
+- **Linting & Formatting**: `ESLint`, `Prettier`
 
 ## Usage
 
@@ -76,7 +81,7 @@ budget-management-app/
 ├── public/                 # Static files
 ├── src/
 │   ├── components/         # Reusable components (e.g., TransactionForm, TransactionItem)
-│   ├── context/            # Context and provider setup for global state (e.g., BudgetContext)
+│   ├── context/            # Context and provider setup for global state (e.g., BudgetContext, useBudgetContext)
 │   ├── helpers/            # Helpers functions (e.g., calculateBudget)
 │   ├── styles/             # Global SASS and styling files
 │   ├── types/              # TypeScript interfaces (e.g., Transaction, BudgetContextType)
