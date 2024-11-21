@@ -1,1 +1,1 @@
-export { BudgetContext } from "./BudgetContext";
+export { BudgetContext, BudgetProvider } from "./BudgetContext";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BudgetProvider } from "./context/BudgetContext/BudgetContext";
+import { BudgetProvider } from "./context/BudgetContext";
 import { TransactionForm } from "./components/TransactionForm";
 import { TransactionList } from "./components/TransactionList";
 import { BudgetSummary } from "./components/BudgetSummary";
