@@ -4,7 +4,6 @@ import '@testing-library/jest-dom';
 import { BudgetProvider } from './BudgetContext';
 import { useBudgetContext } from './useBudgetContext'
 
-// Тестовий компонент для перевірки контексту
 const TestComponent: React.FC = () => {
   const { state, dispatch } = useBudgetContext();
 
@@ -46,10 +45,8 @@ describe('BudgetContext', () => {
       </BudgetProvider>
     );
 
-    // Клік по кнопці для додавання транзакції
     fireEvent.click(screen.getByText(/Add Transaction/i));
 
-    // Перевірка, чи транзакція з'явилася в списку
     expect(screen.getByText(/income - \$100/i)).toBeInTheDocument();
   });
 });

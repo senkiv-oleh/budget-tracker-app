@@ -1,10 +1,8 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { TransactionItem } from "./TransactionItem";
 import { useBudgetContext } from "../../context/BudgetContext/useBudgetContext";
 
-// Mock the useBudgetContext hook
 jest.mock("../../context/BudgetContext/useBudgetContext");
 
 describe("TransactionItem Component", () => {
@@ -21,7 +19,6 @@ describe("TransactionItem Component", () => {
   const mockDispatch = jest.fn();
 
   beforeEach(() => {
-    // Mock the dispatch function
     (useBudgetContext as jest.Mock).mockReturnValue({
       dispatch: mockDispatch,
     });
