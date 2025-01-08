@@ -1,4 +1,12 @@
-import React, { createContext, Dispatch, ReactNode, useEffect, useReducer } from "react";
+import
+  React, {
+    createContext,
+    Dispatch,
+    ReactNode,
+    useEffect,
+    useReducer,
+    useRef
+  } from "react";
 import { Transaction } from "../../types/Transaction";
 import { TransactionAction } from "../../types/TransactionAction";
 
@@ -75,9 +83,14 @@ type BudgetProviderProps = {
 
 export const BudgetProvider: React.FC<BudgetProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(budgetReducer, loadFromLocalStorage());
+  const hasStateChanged = useRef(false);
 
   useEffect(() => {
-    saveToLocalStorage(state);
+    if (hasStateChanged.current) {
+      saveToLocalStorage(state);
+    } else {
+      hasStateChanged.current = true;
+    }
   }, [state]);
 
   return (
@@ -86,3 +99,4 @@ export const BudgetProvider: React.FC<BudgetProviderProps> = ({ children }) => {
     </BudgetContext.Provider>
   );
 };
+
