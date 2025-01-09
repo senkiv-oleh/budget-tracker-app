@@ -7,19 +7,23 @@ import { TransactionFormProps } from '../../types/TransactionFormProps';
 import categories from './categories.json';
 import "./TransactionForm.scss";
 
+type DefaultValues = Omit<Transaction, "id">;
+
+const defaultValues: DefaultValues = {
+  type: '',
+  amount: 0,
+  category: '',
+  description: '',
+  date: '',
+};
+
 export const TransactionForm: React.FC<TransactionFormProps> = ({
   editingTransaction,
   setEditingTransaction,
 }) => {
   const { dispatch } = useBudgetContext();
   const { incomeCategories, expenseCategories } = categories;
-  const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<Transaction>( {defaultValues: {
-     type: '',
-    amount: 0,
-    category: '',
-    description: '',
-    date: '',
-  }});
+  const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<Transaction>( {defaultValues});
 
   useEffect(() => {
     if (editingTransaction) {
@@ -36,18 +40,11 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
     if (editingTransaction) {
       dispatch({ type: "UPDATE_TRANSACTION", payload: transactionData });
       setEditingTransaction(null);
-
     } else {
       dispatch({ type: "ADD_TRANSACTION", payload: transactionData });
     }
 
-     reset({
-      type: '',
-      amount: NaN,
-      category: '',
-      description: '',
-      date: '',
-     });
+     reset(defaultValues);
   };
 
   return (
